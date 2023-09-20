@@ -1,0 +1,18 @@
+@use "./fonts" as *;
+@use "./colors" as *;
+/**
+* @Mobile typography
+*/
+
+@mixin normalize-line-height-font-style() {
+  line-height: normal;
+  font-style: normal;
+}
+
+@mixin site-title() {
+  @include normalize-line-height-font-style();
+  font-family: $font-family-primary;
+  font-weight: $font-weight-700;
+  font-size: $font-size-15;
+  color: $white;
+}

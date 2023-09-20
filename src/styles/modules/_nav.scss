@@ -1,0 +1,119 @@
+@use "./typography" as *;
+@use "./colors" as *;
+@use "./mixins" as *;
+
+.extendable-site-title {
+  @include normalize-line-height-font-style;
+  @include site-title;
+}
+
+.extendable-background-color {
+  background-color: $white;
+}
+
+.extendable-background-color__hover {
+  background-color: $sharp-purple;
+}
+
+@mixin extendable-burger-menu($top: -6px, $left: 0) {
+  @extend .extendable-background-color;
+  display: inline-flex;
+  position: absolute;
+  height: inherit;
+  width: 10px;
+  content: "";
+  left: $left;
+  top: $top;
+  bottom: 0;
+  right: 0;
+}
+
+//***************** animate hand burger menu start
+@keyframes hover-in-animation__before {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes hover-in-animation__after {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes hover-out-animation__before {
+  0% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hover-out-animation__after {
+  0% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+//***************** animate hand burger menu end
+
+.site-title {
+  @extend .extendable-site-title;
+
+  &__purple {
+    @extend .extendable-site-title;
+    color: $sharp-purple;
+  }
+}
+
+.handBurgerContainer {
+  width: 19px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+
+  &:hover .handBurgerMenu {
+    @extend .extendable-background-color__hover;
+  }
+  &:hover .handBurgerMenu:after {
+    @extend .extendable-background-color__hover;
+    animation: hover-in-animation__after 0.3s forwards;
+  }
+  &:hover .handBurgerMenu:before {
+    @extend .extendable-background-color__hover;
+    animation: hover-in-animation__before 0.3s forwards;
+  }
+
+  &:not(:hover) .handBurgerMenu:after {
+    animation: hover-out-animation__after 0.3s forwards;
+  }
+  &:not(:hover) .handBurgerMenu:before {
+    animation: hover-out-animation__before 0.3s forwards;
+  }
+}
+
+.handBurgerMenu {
+  @extend .extendable-background-color;
+  transition: transform 0.6s ease, 0.6s ease;
+  transform: translateX(0);
+  position: relative;
+  width: inherit;
+  height: 3px;
+
+  &:before {
+    @include extendable-burger-menu();
+  }
+  &:after {
+    @include extendable-burger-menu(6px, 9px);
+  }
+}
