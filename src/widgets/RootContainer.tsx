@@ -1,8 +1,10 @@
+import HeroSection from "./HeroSection"
 import NavBar from "./NavBar"
 
 function RootContainer() {
     return <section className="root-container">
-        <NavBar/>
+        <NavBar />
+        <HeroSection/>
     </section>
 }
 

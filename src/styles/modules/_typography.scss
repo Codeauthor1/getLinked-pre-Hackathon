@@ -11,8 +11,8 @@
 
 @mixin site-title() {
   @include normalize-line-height-font-style();
-  font-family: $font-family-primary;
-  font-weight: $font-weight-700;
-  font-size: $font-size-15;
+  font-family: $font-family__primary;
+  font-weight: $font-weight__700;
+  font-size: $font-size__15px;
   color: $white;
 }

@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @mixin extendable-flex-container(
   $align-items: center,
   $justify-content: center
@@ -5,4 +7,16 @@
   justify-content: $justify-content;
   align-items: $align-items;
   display: flex;
+}
+
+@mixin extendable-transform($value: 0) {
+  transform: translateX($value);
+}
+
+@mixin extendable-transform__p100 {
+  @include extendable-transform($unit-8px);
+}
+
+@mixin extendable-transform__n100 {
+  @include extendable-transform(-$unit-8px);
 }

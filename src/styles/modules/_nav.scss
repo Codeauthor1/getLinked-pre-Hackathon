@@ -1,6 +1,7 @@
 @use "./typography" as *;
 @use "./colors" as *;
 @use "./mixins" as *;
+@use "./variables" as *;
 
 .extendable-site-title {
   @include normalize-line-height-font-style;
@@ -15,12 +16,12 @@
   background-color: $sharp-purple;
 }
 
-@mixin extendable-burger-menu($top: -6px, $left: 0) {
+@mixin extendable-burger-menu($top: -$unit-6px, $left: 0) {
   @extend .extendable-background-color;
   display: inline-flex;
   position: absolute;
   height: inherit;
-  width: 10px;
+  width: 0.625rem;
   content: "";
   left: $left;
   top: $top;
@@ -29,39 +30,40 @@
 }
 
 //***************** animate hand burger menu start
+
 @keyframes hover-in-animation__before {
   0% {
-    transform: translateX(0);
+    @include extendable-transform;
   }
   100% {
-    transform: translateX(8px);
+    @include extendable-transform__p100;
   }
 }
 
 @keyframes hover-in-animation__after {
   0% {
-    transform: translateX(0);
+    @include extendable-transform;
   }
   100% {
-    transform: translateX(-8px);
+    @include extendable-transform__n100;
   }
 }
 
 @keyframes hover-out-animation__before {
   0% {
-    transform: translateX(8px);
+    @include extendable-transform__p100;
   }
   100% {
-    transform: translateX(0);
+    @include extendable-transform;
   }
 }
 
 @keyframes hover-out-animation__after {
   0% {
-    transform: translateX(-8px);
+    @include extendable-transform__n100;
   }
   100% {
-    transform: translateX(0);
+    @include extendable-transform;
   }
 }
 
@@ -69,6 +71,7 @@
 
 .site-title {
   @extend .extendable-site-title;
+  cursor: pointer;
 
   &__purple {
     @extend .extendable-site-title;
@@ -76,44 +79,45 @@
   }
 }
 
-.handBurgerContainer {
-  width: 19px;
-  height: 14px;
-  display: flex;
-  align-items: center;
+.hand-burger-container {
+  @include extendable-flex-container;
+  width: $unit-19px;
+  height: $unit-14px;
+  cursor: pointer;
 
-  &:hover .handBurgerMenu {
+  &:hover .hand-burger-menu {
     @extend .extendable-background-color__hover;
   }
-  &:hover .handBurgerMenu:after {
+  &:hover .hand-burger-menu:after {
     @extend .extendable-background-color__hover;
-    animation: hover-in-animation__after 0.3s forwards;
+    animation: hover-in-animation__after $animation-timer $animation-function;
   }
-  &:hover .handBurgerMenu:before {
+  &:hover .hand-burger-menu:before {
     @extend .extendable-background-color__hover;
-    animation: hover-in-animation__before 0.3s forwards;
+    animation: hover-in-animation__before $animation-timer $animation-function;
   }
 
-  &:not(:hover) .handBurgerMenu:after {
-    animation: hover-out-animation__after 0.3s forwards;
+  &:not(:hover) .hand-burger-menu:after {
+    animation: hover-out-animation__after $animation-timer $animation-function;
   }
-  &:not(:hover) .handBurgerMenu:before {
-    animation: hover-out-animation__before 0.3s forwards;
+  &:not(:hover) .hand-burger-menu:before {
+    animation: hover-out-animation__before $animation-timer $animation-function;
   }
 }
 
-.handBurgerMenu {
+.hand-burger-menu {
   @extend .extendable-background-color;
-  transition: transform 0.6s ease, 0.6s ease;
+  transition: transform $transition-timer $transition-function,
+    $transition-timer ease;
   transform: translateX(0);
   position: relative;
+  height: $unit-3px;
   width: inherit;
-  height: 3px;
 
   &:before {
     @include extendable-burger-menu();
   }
   &:after {
-    @include extendable-burger-menu(6px, 9px);
+    @include extendable-burger-menu($unit-6px, $unit-9px);
   }
 }

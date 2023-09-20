@@ -1,8 +1,8 @@
 
 function HandBurgerMenu() {
     return (
-        <div className="handBurgerContainer">
-            <div className="handBurgerMenu"/>
+        <div className="hand-burger-container">
+            <div className="hand-burger-menu"/>
         </div>
     );
 }
